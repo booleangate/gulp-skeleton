@@ -1,10 +1,15 @@
+"use strict";
+
 var gulp = require("gulp"),
 	istanbul = require("gulp-istanbul"),
 	lint = require("gulp-eslint"),
 	mocha = require("gulp-mocha");
 
-var SOURCE_APP = ["index.js"],
-	SOURCE_TEST = ["test/**/*,js"];
+
+var SOURCE_APP = ["source/**/*.js"],
+	SOURCE_TEST = ["test/**/*,js"],
+	SOURCE_ALL = SOURCE_APP.concat(SOURCE_TEST).concat("gulpfile.js"),
+	COVERAGE_DIR = "test/coverage";
 
 function test() {
 	return gulp.src(SOURCE_TEST)
@@ -14,7 +19,7 @@ function test() {
 }
 
 gulp.task("lint", function() {
-	return gulp.src(SOURCE_APP.concat(SOURCE_TEST))
+	return gulp.src(SOURCE_ALL)
 		.pipe(lint({
 			globals: {
 				suite: true,
@@ -30,7 +35,15 @@ gulp.task("lint", function() {
         .pipe(lint.failOnError());
 });
 
+gulp.task("autolint", function() {
+	gulp.watch(SOURCE_ALL, ["lint"]);
+});
+
 gulp.task("test", ["lint"], test);
+
+gulp.task("autotest", function() {
+	gulp.watch(SOURCE_ALL, ["test"]);
+});
 
 gulp.task("test-coverage", ["lint"], function(cb) {
 	// Instrument all source files with Istanbul before running tests.
@@ -41,7 +54,7 @@ gulp.task("test-coverage", ["lint"], function(cb) {
 		.on("finish", function () {
 			test()
 				.pipe(istanbul.writeReports({
-					dir: "test/coverage"
+					dir: COVERAGE_DIR
 				}))
 				.on("end", cb);
 		});
