@@ -1,0 +1,18 @@
+{
+  "name": "your-project-name-here",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "gulp test"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-eslint": "^0.2.0",
+    "gulp-istanbul": "^0.5.0",
+    "gulp-mocha": "^2.0.0"
+  },
+  "dependencies": {
+    "shelljs": "^0.3.0"
+  }
+}
