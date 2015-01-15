@@ -42,7 +42,7 @@ gulp.task("autolint", function() {
 gulp.task("test", ["lint"], test);
 
 gulp.task("autotest", function() {
-	gulp.watch(SOURCE_ALL, ["test"]);
+	gulp.watch(SOURCE_TEST.concat(SOURCE_APP), ["test"]);
 });
 
 gulp.task("test-coverage", ["lint"], function(cb) {
