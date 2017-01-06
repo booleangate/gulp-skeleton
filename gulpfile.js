@@ -7,7 +7,7 @@ var gulp = require("gulp"),
 
 
 var SOURCE_APP = ["source/**/*.js"],
-	SOURCE_TEST = ["test/**/*,js"],
+	SOURCE_TEST = ["test/**/*.js"],
 	SOURCE_ALL = SOURCE_APP.concat(SOURCE_TEST).concat("gulpfile.js"),
 	COVERAGE_DIR = "test/coverage";
 
